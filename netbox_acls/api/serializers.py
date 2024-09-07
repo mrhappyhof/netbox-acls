@@ -8,7 +8,6 @@ from drf_spectacular.utils import extend_schema_field
 from ipam.api.nested_serializers import NestedPrefixSerializer
 from netbox.api.fields import ContentTypeField
 from netbox.api.serializers import NetBoxModelSerializer
-from netbox.constants import NESTED_SERIALIZER_PREFIX
 from rest_framework import serializers
 from utilities.api import get_serializer_for_model
 
@@ -81,7 +80,7 @@ class AccessListSerializer(NetBoxModelSerializer):
     def get_assigned_object(self, obj):
         serializer = get_serializer_for_model(
             obj.assigned_object,
-            prefix=NESTED_SERIALIZER_PREFIX,
+            prefix="Nested",
         )
         context = {"request": self.context["request"]}
         return serializer(obj.assigned_object, context=context).data
@@ -146,7 +145,7 @@ class ACLInterfaceAssignmentSerializer(NetBoxModelSerializer):
     def get_assigned_object(self, obj):
         serializer = get_serializer_for_model(
             obj.assigned_object,
-            prefix=NESTED_SERIALIZER_PREFIX,
+            prefix="Nested",
         )
         context = {"request": self.context["request"]}
         return serializer(obj.assigned_object, context=context).data
